@@ -17,5 +17,12 @@ def classify_with_regex(log_message):
     return None
 
 if __name__ == "__main__":
-    log_message = "User User123 logged in."
-    print(classify_with_regex(log_message))
+    print(classify_with_regex("User User123 logged in."))
+    print(classify_with_regex("Backup started at 2020-01-01 12:00:00"))
+    print(classify_with_regex("File report.pdf uploaded successfully by user User123"))
+    print(classify_with_regex("Account with ID 123 created by Admin"))
+    print(classify_with_regex("System updated to version 1.2.3"))
+    print(classify_with_regex("Disk cleanup completed successfully."))
+    print(classify_with_regex("System reboot initiated by user Admin"))
+    print(classify_with_regex("Backup completed successfully."))
+    print(classify_with_regex("Guten Appetit!"))
