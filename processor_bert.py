@@ -11,7 +11,7 @@ def classify_with_bert(log_message):
     probabilities = classifier_model.predict_proba([message_embedding])[0]
     if max(probabilities) > 0.5:
         return classifier_model.classes_[probabilities.argmax()]
-    return None
+    return "Unclassified"
   
 
 if __name__ == "__main__":

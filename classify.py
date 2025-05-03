@@ -1,14 +1,24 @@
 from processor_regex import classify_with_regex
+from processor_bert import classify_with_bert
+from processor_llm import classify_with_llm
+import pandas as pd
 
+def classify_csv(input_file,output_file=None,server=False):
+    df = pd.read_csv(input_file)
+    df['label'] = classify(list(zip(df['source'], df['log_message'])))
+    if not server:
+        if output_file is None:
+            output_file = input_file.replace('.csv', '_classified.csv')
+        df.to_csv(output_file, index=False)
+    else:
+        return df
 def classify_log(source,log_message):
     if source == "LegacyCRM":
-        pass # classify using LLM
+        return classify_with_llm(log_message)
     else:
-        label = classify_with_regex(log_message)
-        if label is None:
-            pass # classify using BERT/Logistic Regression
-        return label
-    return classify_with_regex(source,log_message)
+        label = classify_with_regex(log_message)     
+        return label if label else classify_with_bert(log_message)
+   
 
 def classify(logs):
     labels =[]
@@ -22,7 +32,7 @@ if __name__ == "__main__":
     
     logs = [
         ("ModernCRM", "IP 192.168.133.114 blocked due to potential attack"),
-        ("BillingSystem", "User 12345 logged in."),
+        ("BillingSystem", "User User12345 logged in."),
         ("AnalyticsEngine", "File data_6957.csv uploaded successfully by user User265."),
         ("AnalyticsEngine", "Backup completed successfully."),
         ("ModernHR", "GET /v2/54fadb412c4e40cdbaed9335e4c35a9e/servers/detail HTTP/1.1 RCODE  200 len: 1583 time: 0.1878400"),
@@ -35,3 +45,5 @@ if __name__ == "__main__":
 
 
     classified_logs = classify(logs)
+    for log, label in zip(logs, classified_logs):
+        print(f"Log: {log[1]} - Classified as: {label}")
