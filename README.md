@@ -25,6 +25,9 @@ The hybrid classification system follows a cascading approach:
    - Employs few-shot learning with tailored prompts for accurate classification.
 
 ### Workflow
+![Workflow Diagram](assets/workflow_diagram.png)
+*Figure 1: Hybrid log classification system workflow showing the cascading approach with RegEx, BERT, and LLM-based classification stages*
+
 - **Input**: Aggregated logs in CSV format with columns for timestamp, source, log message, and target label.
 - **Processing**:
   - Logs are first processed by the RegEx classifier.
@@ -36,14 +39,6 @@ The hybrid classification system follows a cascading approach:
 - **Cost Optimization**: RegEx minimizes costly LLM usage; BERT balances accuracy and efficiency.
 - **High Accuracy**: Tailored methods ensure precise classification for different log types.
 - **Scalability**: Hybrid approach supports scaling from thousands to millions of logs daily.
-
-## Workflow Diagram
-
-Below is the workflow diagram for the hybrid log classification system:
-
-![Workflow Diagram](assets/workflow_diagram.png)
-
-The diagram illustrates the cascading approach of RegEx, BERT, and LLM-based classification, starting from input logs and ending with classified logs.
 
 ## Folder Structure
 ```
